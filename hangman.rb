@@ -10,7 +10,7 @@ module Hangman
             @tries_left = 6
             @guessed = {}
 
-            @status = :continue
+            @status = :good_guess
         end
 
         def make_guess letter
@@ -92,9 +92,9 @@ module Hangman
 
         private
         def self.guessed_letters game
-            guessed = "Guesed letters: "
+            guessed = "Guesed letters:\n"
             game.guessed.each do |ch, _|
-                guessed << ch
+                guessed << "#{ch.upcase} "
             end
 
             guessed
