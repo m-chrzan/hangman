@@ -10,15 +10,20 @@ def next_guess game
         guess.chomp!
     end
 
-    puts guess
+    case guess
+    when /^[a-zA-Z]$/
+        game.make_guess guess
+    else
+        puts "Invalid guess. Try again."
+    end
 end
 
-def handle_status status
-    case status
-    when :ended
-        throw :break, status
+def handle_status game
+    case game.status
+    when :ended, :won, :lost
+        throw :break, game.status
     when :good_guess, :bad_guess
-        puts Game.board.to_s
+        puts Display.print game
     when :invalid_guess
         puts "Already guessed that letter. Try again."
     end
@@ -28,7 +33,7 @@ game = Game.new '5desk.txt'
 
 result = catch(:break) do
     loop do
-        handle_status game.status
+        handle_status game
 
         print "Guess a letter: "
 
