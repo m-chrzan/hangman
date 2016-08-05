@@ -39,6 +39,16 @@ module Hangman
             @status = :ended
         end
 
+        def save filename
+            Game.save self, filename
+        end
+
+        def self.save game, filename
+            File.open(filename, 'w') do |f|
+                f.print Marshal.dump(game)
+            end
+        end
+
         private
 
         def get_word dictionary

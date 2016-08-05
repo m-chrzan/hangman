@@ -13,10 +13,18 @@ def next_guess game
         case guess
         when /^[a-zA-Z]$/
             game.make_guess guess
+        when "SAVE"
+            game.save("saves/#{get_filename}")
+            game.force_quit
         else
             puts "Invalid guess. Try again."
         end
     end
+end
+
+def get_filename
+    print "Enter file name: "
+    gets.chomp
 end
 
 def handle_status game
