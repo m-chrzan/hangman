@@ -1,6 +1,6 @@
 module Hangman
     class Game
-        attr_reader :status, :guessed, :revealed
+        attr_reader :status, :guessed, :revealed, :tries_left
 
         def initialize(dictionary)
             raise DictionaryNotFound.new unless File.exists? dictionary
@@ -9,8 +9,6 @@ module Hangman
             @letters_left = @word.length
             @tries_left = 6
             @guessed = {}
-
-            puts @word
 
             @status = :continue
         end
@@ -29,6 +27,12 @@ module Hangman
             end
 
             check_win_loss_conditions
+        end
+
+        def reveal
+            @word.each_char.with_index do |ch, i|
+                @revealed[i] = ch
+            end
         end
 
         def force_quit
@@ -73,6 +77,44 @@ module Hangman
 
     class Display
         def self.print game
+            display = ""
+            display << (guessed_letters game)
+            display << "\n"
+            display << (gallows game)
+            display << "\n"
+            display << (form_word game)
+            display << "\n"
+
+            display
+        end
+
+        private
+        def self.guessed_letters game
+            guessed = ""
+            game.guessed.each do |ch, _|
+                guessed << ch
+            end
+
+            guessed
+        end
+
+        def self.gallows game
+            "#{game.tries_left} wrong guesses left."
+        end
+
+        def self.form_word game
+            word = ""
+            game.revealed.each do |ch|
+                if ch.nil?
+                    word << '_'
+                else
+                    word << ch
+                end
+
+                word << ' '
+            end
+
+            word
         end
     end
 

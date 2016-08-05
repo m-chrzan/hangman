@@ -41,4 +41,9 @@ result = catch(:break) do
     end
 end
 
-puts "Game #{result}"
+case result
+when :won, :lost
+    game.reveal
+    puts Display.print game
+    puts "You #{result} the game!"
+end
