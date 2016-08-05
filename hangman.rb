@@ -76,6 +76,8 @@ module Hangman
     end
 
     class Display
+        @@gallows_stages = File.read('gallows/gallows.txt').split("\n\n")
+
         def self.print game
             display = ""
             display << (guessed_letters game)
@@ -90,7 +92,7 @@ module Hangman
 
         private
         def self.guessed_letters game
-            guessed = ""
+            guessed = "Guesed letters: "
             game.guessed.each do |ch, _|
                 guessed << ch
             end
@@ -100,6 +102,7 @@ module Hangman
 
         def self.gallows game
             "#{game.tries_left} wrong guesses left."
+            @@gallows_stages[6-game.tries_left]
         end
 
         def self.form_word game

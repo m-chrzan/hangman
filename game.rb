@@ -8,13 +8,12 @@ def next_guess game
         game.force_quit
     else
         guess.chomp!
-    end
-
-    case guess
-    when /^[a-zA-Z]$/
-        game.make_guess guess
-    else
-        puts "Invalid guess. Try again."
+        case guess
+        when /^[a-zA-Z]$/
+            game.make_guess guess
+        else
+            puts "Invalid guess. Try again."
+        end
     end
 end
 
@@ -46,4 +45,6 @@ when :won, :lost
     game.reveal
     puts Display.print game
     puts "You #{result} the game!"
+else
+    puts
 end
