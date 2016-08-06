@@ -10,7 +10,7 @@ module Hangman
             @tries_left = 6
             @guessed = {}
 
-            @status = :good_guess
+            @status = :continue
         end
 
         def make_guess letter
@@ -47,6 +47,16 @@ module Hangman
             File.open(filename, 'w') do |f|
                 f.print Marshal.dump(game)
             end
+        end
+
+        def self.load filename
+            game = Marshal.load(File.open(filename, 'r'))
+            game.continue
+            game
+        end
+
+        def continue
+            @status = :continue
         end
 
         private

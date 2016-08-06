@@ -4,6 +4,38 @@ require './hangman'
 
 include Hangman
 
+def init
+    puts %Q{Select option:
+  1) New game
+  2) Load game }
+
+    case get_new_or_load_choice
+    when :new
+        Game.new '5desk.txt'
+    when :load
+         begin
+            Game.load("saves/#{get_filename}")
+         rescue
+             puts "Could not open file!"
+             Game.new '5desk.txt'
+         end
+    end
+end
+
+def get_new_or_load_choice
+    print '> '
+    choice = gets.chomp
+    case choice
+    when '1'
+        :new
+    when '2'
+        :load
+    else
+        puts "Invalid choice, try again."
+        get_new_or_load_choice
+    end
+end
+
 def next_guess game
     guess = gets
     if guess.nil?
@@ -31,14 +63,14 @@ def handle_status game
     case game.status
     when :ended, :won, :lost
         throw :break, game.status
-    when :good_guess, :bad_guess
+    when :good_guess, :bad_guess, :continue
         puts Display.print game
     when :invalid_guess
         puts "Already guessed that letter. Try again."
     end
 end
 
-game = Game.new '5desk.txt'
+game = init
 
 result = catch(:break) do
     loop do
