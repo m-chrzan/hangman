@@ -5,6 +5,8 @@ require './hangman'
 include Hangman
 
 def init
+    Dir.mkdir('saves') unless Dir.exists?('saves')
+
     puts %Q{Select option:
   1) New game
   2) Load game }
