@@ -18,7 +18,7 @@ def init
          begin
             Game.load("saves/#{get_filename}")
          rescue
-             puts "Could not open file!"
+             puts "Could not open file! Starting a new game."
              Game.new '5desk.txt'
          end
     end

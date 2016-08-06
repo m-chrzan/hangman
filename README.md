@@ -13,6 +13,41 @@ off.
 
 ---
 
+    $ ./game.rb 
+    Select option:
+      1) New game
+      2) Load game 
+    > 1
+    Guesed letters:
+
+          _______
+         |/      |
+         |     
+         |     
+         |     
+         |     
+         |
+     jgs_|___
+    _ _ _ _ _ _ _ _ _ _ 
+    Guess a letter: _
+
+    ...
+
+    Guesed letters:
+    E A R T L S F B C O N D 
+          _______
+         |/      |
+         |      (_)
+         |      \| 
+         |       |
+         |        
+         |
+     jgs_|___
+    c a r b o n a t e d 
+    You won the game!
+
+---
+
 Uses the *5desk* dictionary from [Scrapmaker](http://scrapmaker.com/view/twelve-dicts/5desk.txt).
 
 ASCII gallows created by [Joan G. Stark](https://en.wikipedia.org/wiki/Joan_Stark)
