@@ -74,6 +74,10 @@ end
 
 game = init
 
+puts
+puts "If you want to save your game at any point, type SAVE instead of guessing a letter."
+puts
+
 result = catch(:break) do
     loop do
         handle_status game
